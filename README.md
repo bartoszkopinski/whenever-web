@@ -32,7 +32,7 @@ You can add a link to the panel in your views:
 
 You can also optionally describe the Cron jobs in `schedule.rb`:
 
-```
+```ruby
 require 'whenever/web'
 
 every 1.day, at: '3:00 am' do
