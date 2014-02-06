@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "whenever-web"
-  spec.version       = "0.0.3"
+  spec.version       = "0.0.4"
   spec.authors       = ["Bartosz Kopinski"]
   spec.email         = ["bartosz.kopinski@gmail.pl"]
   spec.summary       = %q{Web GUI for Whenever gem}

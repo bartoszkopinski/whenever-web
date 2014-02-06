@@ -30,6 +30,17 @@ You can add a link to the panel in your views:
 = link_to 'Cron Jobs', whenever_path
 ```
 
+You can also optionally describe the Cron jobs in `schedule.rb`:
+
+```
+require 'whenever/web'
+
+every 1.day, at: '3:00 am' do
+  desc 'Database Backup'
+  rake 'db:backup'
+end
+```
+
 ## Contributing
 
 1. Fork it (http://github.com/bartoszkopinski/whenever-web/fork)
