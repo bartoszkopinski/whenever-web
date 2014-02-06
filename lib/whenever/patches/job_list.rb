@@ -5,9 +5,5 @@ module Whenever
     def desc description
       @options[:description] = description
     end
-
-    def schedule
-      @jobs
-    end
   end
 end

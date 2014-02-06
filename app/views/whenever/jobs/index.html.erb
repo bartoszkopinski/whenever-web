@@ -1,25 +1,70 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="panel-title">
+      Settings
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <% @job_list.set_variables.keys.each do |k| %>
+          <th><%= k.to_s.humanize %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% @job_list.set_variables.values.each do |v| %>
+          <td><%= v %></td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
       Cron jobs
     </div>
   </div>
   <table class="table">
     <thead>
       <tr>
-        <th>Interval</th>
         <th>Task</th>
+        <th>Interval</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <% jobs.each_with_index do |job, i| %>
+      <% @job_list.web_jobs.each_with_index do |job, i| %>
         <tr>
-          <td><%= job.interval %></td>
           <td><%= job.description %></td>
+          <td><%= job.interval %></td>
           <td><%= link_to 'Run now', run_job_path(i), class: 'btn btn-danger', title: job.command %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      Error log
+    </div>
+  </div>
+  <%= text_area(:job_list, :error_log, rows: 15, class: 'form-control', disabled: 'disabled') %>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      Standard log
+    </div>
+  </div>
+  <%= text_area(:job_list, :standard_log, rows: 15, class: 'form-control', disabled: 'disabled') %>
+</div>
+<script type="text/javascript">
+  var error_log = document.getElementById('job_list_error_log');
+  var standard_log = document.getElementById('job_list_standard_log');
+  error_log.scrollTop = error_log.scrollHeight;
+  standard_log.scrollTop = standard_log.scrollHeight;
+</script

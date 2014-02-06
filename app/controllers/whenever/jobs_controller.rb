@@ -1,20 +1,22 @@
 module Whenever
   class JobsController < ActionController::Base
+    before_filter :list_jobs
     layout 'admin'
 
     def index
     end
 
     def run
-      `#{jobs.fetch(params[:id].to_i).command}`
+      job = @job_list.web_jobs.fetch(params[:id].to_i)
+      `#{job.command}`
+      flash[:notice] = job.command
       redirect_to jobs_path
     end
 
     private
 
-    def jobs
-      WebJobList.new(file: 'config/schedule.rb').web_jobs
+    def list_jobs
+      @job_list = WebJobList.new(file: 'config/schedule.rb')
     end
-    helper_method :jobs
   end
 end
