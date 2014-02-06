@@ -4,12 +4,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "whenever-web"
-  spec.version       = "0.0.1"
+  spec.version       = "0.0.2"
   spec.authors       = ["Bartosz Kopinski"]
-  spec.email         = ["bartosz.kopinski@netguru.pl"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.email         = ["bartosz.kopinski@gmail.pl"]
+  spec.summary       = %q{Web GUI for Whenever gem}
+  spec.description   = %q{Rails based web GUI for managing Whenever Cron jobs}
+  spec.homepage      = "https://github.com/bartoszkopinski/whenever-web"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

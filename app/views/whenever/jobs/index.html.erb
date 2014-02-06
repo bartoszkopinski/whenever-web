@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      Cron jobs
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Interval</th>
+        <th>Task</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% jobs.each_with_index do |job, i| %>
+        <tr>
+          <td><%= job.interval %></td>
+          <td><%= job.description %></td>
+          <td><%= link_to 'Run now', run_job_path(i), class: 'btn btn-danger', title: job.command %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

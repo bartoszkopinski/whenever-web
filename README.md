@@ -1,6 +1,4 @@
-# Whenever::Web
-
-TODO: Write a gem description
+# Whenever Web
 
 ## Installation
 
@@ -12,17 +10,29 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install whenever-web
-
 ## Usage
 
-TODO: Write usage instructions here
+Mount the engine in your `routes.rb`:
+
+```ruby
+MyApp::Application.routes.draw do
+  # ...
+  mount Whenever::Web, at: '/whenever'
+  # ...
+end
+```
+
+And go to `/whenever`.
+
+You can add a link to the panel in your views:
+
+```ruby
+= link_to 'Cron Jobs', whenever_path
+```
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/whenever-web/fork )
+1. Fork it (http://github.com/bartoszkopinski/whenever-web/fork)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
