@@ -1,70 +1,93 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="panel-title">
-      Settings
+  <div class="panel-heading clearfix">
+    <div class="panel-title pull-left">
+      <%= t('whenever.cron_jobs') %>
     </div>
   </div>
   <table class="table">
     <thead>
       <tr>
-        <% @job_list.set_variables.keys.each do |k| %>
-          <th><%= k.to_s.humanize %></th>
-        <% end %>
+        <th><%= t('whenever.task') %></th>
+        <th><%= t('whenever.interval') %></th>
+        <th><%= t('whenever.hour') %></th>
+        <th><%= t('whenever.roles') %></th>
+        <th><%= t('whenever.action') %></th>
       </tr>
     </thead>
     <tbody>
+      <% job_list.each_with_index do |job, i| %>
       <tr>
-        <% @job_list.set_variables.values.each do |v| %>
-          <td><%= v %></td>
-        <% end %>
+        <td><%= job.description %></td>
+        <td><%= job.interval %></td>
+        <td><%= job.at %></td>
+        <td><%= job.roles %></td>
+        <td><%= link_to t('whenever.run_now'), run_job_path(i), class: 'btn btn-danger', title: job.output %></td>
       </tr>
-    </tbody>
-  </table>
-</div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="panel-title">
-      Cron jobs
-    </div>
-  </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Task</th>
-        <th>Interval</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @job_list.web_jobs.each_with_index do |job, i| %>
-        <tr>
-          <td><%= job.description %></td>
-          <td><%= job.interval %></td>
-          <td><%= link_to 'Run now', run_job_path(i), class: 'btn btn-danger', title: job.command %></td>
-        </tr>
       <% end %>
     </tbody>
   </table>
 </div>
+<% job_list.logs.each do |_, log| %>
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="panel-title">
-      Error log
+  <div class="panel-heading clearfix">
+    <div class="panel-title pull-left">
+      <%= t("whenever.#{log.name}") %>
+    </div>
+    <div class="pull-right">
+      <%= link_to t('whenever.clear'), clear_log_path(log.kind), class: 'btn btn-xs btn-warning' %>
     </div>
   </div>
-  <%= text_area(:job_list, :error_log, rows: 15, class: 'form-control', disabled: 'disabled') %>
-</div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="panel-title">
-      Standard log
-    </div>
-  </div>
-  <%= text_area(:job_list, :standard_log, rows: 15, class: 'form-control', disabled: 'disabled') %>
+  <%= text_area_tag(log.name, log.tail, rows: 15, class: 'form-control', disabled: 'disabled') %>
 </div>
 <script type="text/javascript">
-  var error_log = document.getElementById('job_list_error_log');
-  var standard_log = document.getElementById('job_list_standard_log');
-  error_log.scrollTop = error_log.scrollHeight;
-  standard_log.scrollTop = standard_log.scrollHeight;
+  var <%= log.name %> = document.getElementById('<%= log.name %>');
+  <%= log.name %>.scrollTop = <%= log.name %>.scrollHeight;
 </script>
+<% end %>
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <div class="panel-title pull-left">
+      <%= t('whenever.options') %>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= t('whenever.settings') %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% job_list.set_variables.each do |k, v| %>
+      <tr>
+        <td><%= k %></td>
+        <td><%= v %></td>
+      </tr>
+      <% end %>
+    <thead>
+      <tr>
+        <th><%= t('whenever.job_types') %></th>
+        <th></th>
+      </tr>
+    </thead>
+      <% job_list.job_types.each do |k, v| %>
+      <tr>
+        <td><%= k %></td>
+        <td><%= v %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% if @crontab.present? %>
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <div class="panel-title pull-left">
+      <%= t('whenever.cron_tab') %>
+    </div>
+  </div>
+  <pre>
+    <%= @crontab %>
+  </pre>
+</div>
+<% end %>

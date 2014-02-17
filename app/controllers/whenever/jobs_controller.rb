@@ -1,22 +1,13 @@
 module Whenever
-  class JobsController < ActionController::Base
-    before_filter :list_jobs
-    layout 'admin'
-
+  class JobsController < Web.config.parent_controller
     def index
+      @crontab = CommandLine.new.send(:read_crontab)
     end
 
     def run
-      job = @job_list.web_jobs.fetch(params[:id].to_i)
-      `#{job.command}`
-      flash[:notice] = job.command
-      redirect_to jobs_path
-    end
-
-    private
-
-    def list_jobs
-      @job_list = WebJobList.new(file: 'config/schedule.rb')
+      runner = JobRunner.new(params[:id])
+      runner.run
+      redirect_to jobs_path, notice: t('.success', command: runner.command)
     end
   end
 end

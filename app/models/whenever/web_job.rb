@@ -3,12 +3,14 @@ require 'whenever/patches/job'
 module Whenever
   class WebJob
     include ActionView::Helpers::DateHelper
-    attr_reader :interval, :job
+    attr_reader :interval
 
     def initialize job, interval
       @job      = job
       @interval = interval
     end
+
+    delegate :output, :at, to: :@job
 
     def description
       @job.options.fetch(:description) {
@@ -16,13 +18,14 @@ module Whenever
       }
     end
 
-    def command
-      replacements = @job.options.map{ |k, v| [":#{k}", v] }.to_h
-      @job.template.gsub(/:\w+/, replacements)
+    def interval
+      distance_of_time_in_words(@interval).gsub('about', '')
+    rescue ArgumentError
+      @interval
     end
 
-    def interval
-      distance_of_time_in_words(@interval)
+    def roles
+      @job.roles.join(', ')
     end
   end
 end

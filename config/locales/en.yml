@@ -1,0 +1,18 @@
+en:
+  whenever:
+    logs:
+      clear:
+        success: "%{kind} log cleaned!"
+    jobs:
+      run:
+        success: "Task run: %{command}"
+    action: Action
+    cron_jobs: Cron jobs
+    error_log: Error log
+    hour: Hour
+    interval: Interval
+    roles: Roles
+    run_now: Run now
+    settings: Settings
+    standard_log: Standard log
+    task: Task
