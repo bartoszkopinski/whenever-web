@@ -1,5 +1,9 @@
 # Whenever Web
 
+Whenever Web is a Rails engine, that can be easily integrated with your admin panel layout.
+
+![Whenever Web](http://i.imgur.com/d6whPlQ.png)
+
 ## Installation
 
 Add this line to your application's Gemfile:
