@@ -12,10 +12,12 @@ module Whenever
 
     delegate :output, :at, to: :@job
 
+    def task
+      @job.options[:task]
+    end
+
     def description
-      @job.options.fetch(:description) {
-        @job.options[:task]
-      }
+      @job.options.fetch(:description) { task }
     end
 
     def interval
