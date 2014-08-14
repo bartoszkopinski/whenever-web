@@ -2,7 +2,7 @@
 
 Whenever Web is a Rails engine, that can be easily integrated with your admin panel layout.
 
-![Whenever Web](http://i.imgur.com/d6whPlQ.png)
+![Whenever Web](http://i.imgur.com/DpARQXG.png)
 
 ## Installation
 
