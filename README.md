@@ -34,6 +34,21 @@ And then execute:
   = link_to 'Cron Jobs', whenever_path
   ```
 
+# Authentication
+
+Out of the box Whenever::Web doesn't make any assumptions about
+authentication. It's possible to take advantage of rails routing
+constraints or rack middleware.
+
+An example using `Rack::Auth::Basic`.
+
+```ruby
+# config/routes.rb
+Whenever::Web.middleware.use Rack::Auth::Basic do |username, password|
+  username == ENV['USERNAME'] && password == ENV['PASSWORD']
+end
+```
+
 ## Optional usage
 
 Describe your Cron jobs in `schedule.rb` by using `desc` method:
